@@ -14,12 +14,8 @@ class Card
   end
 end
 
-all = []
-
 Card::SUIT.each do |typ|
-  Card::NAMES.each do |name|
-    all << typ + name
+  Card::NAMES.each_with_index do |name, index|
+    p Card.new(typ + name => Card::VALUES[index])
   end
 end
-
-puts all
