@@ -17,6 +17,10 @@ class Card
   def show_name
     @card.keys
   end
+
+  def to_s
+    "Название карты: #{show_name}, Количество очков: #{show_value}"
+  end
 end
 
 Card::SUITS.each do |suit|
