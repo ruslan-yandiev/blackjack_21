@@ -34,24 +34,42 @@ class Person
   end
   # метод складывает очки за карты путем вызова высокозависимого метода
   def total_points
-    @cards.each { |card| point_plus(card) }
+    # @cards.each(&@p_p) протестим
+    @cards.each do |hh|
+      hh.card.each { |value| @points += value[1]}
+    end
+    # @points = @cards.inject(0) { |accumulator, card| point_plus(accumulator, card) }
   end
   # изолированный метод, так-как высокая зависимость от инстанс метода класса Card
-  def point_plus(card)
-    @points += card.show_value
+  def point_plus(card)#(arg, card)
+    # @p_p = ->(x){ @points += x.show_value } протестим
+    # @points += card.show_value
+    # accumulator + card.show_value
   end
 end
 
-# plaer = Person.new('Ruslan')
+require_relative 'card'
+cards = []
 
-# 5.times do |i|
-#   plaer.add_card(i)
-# end
+Card::SUITS.each do |suit|
+  Card::NAMES.each_with_index do |name, index|
+   cards << Card.new(suit + name => Card::VALUES[index])
+  end
+end
 
-# puts plaer.name
+plaer = Person.new('Ruslan')
 
-# plaer.show_cards
+2.times do |i|
+  plaer.add_card(cards[i])
+end
 
+puts plaer.name
+
+plaer.show_cards
+
+plaer.total_points
+
+p plaer.points
 # puts '=================================='
 
 # dealer = Person.new
