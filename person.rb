@@ -6,6 +6,7 @@ class Person
     @cards = []
     @money = 100
     @points = 0
+    # @code = ->(x){ @points += x.show_value }
   end
   # метод добавляет по одному объекту класса Card в массив
   def add_card(card)
@@ -34,17 +35,14 @@ class Person
   end
   # метод складывает очки за карты путем вызова высокозависимого метода
   def total_points
-    # @cards.each(&@p_p) протестим
-    @cards.each do |hh|
-      hh.card.each { |value| @points += value[1]}
-    end
-    # @points = @cards.inject(0) { |accumulator, card| point_plus(accumulator, card) }
+    @cards.each { |card| point_plus(card) }
+    # @cards.each(&@code)
+    # @points = @cards.inject(0) { |accum, card| point_plus(accum, card) }
   end
   # изолированный метод, так-как высокая зависимость от инстанс метода класса Card
-  def point_plus(card)#(arg, card)
-    # @p_p = ->(x){ @points += x.show_value } протестим
-    # @points += card.show_value
-    # accumulator + card.show_value
+  def point_plus(*card)
+    @points += card[0].show_value
+    # card[0] + card[1].show_value
   end
 end
 
