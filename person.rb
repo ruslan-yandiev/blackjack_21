@@ -6,13 +6,12 @@ class Person
     @cards = []
     @money = 100
     @points = 0
-    # @code = ->(x){ @points += x.show_value }
   end
   # метод добавляет по одному объекту класса Card в массив
   def add_card(card)
     @cards << card
   end
-  # покажет объекты если имеется любое имя ирока кроме имени dealer, иначе вернот * в количестве имеющихся карт
+  # покажет объекты если имеется любое имя ирока кроме имени dealer, иначе вернёт * в количестве имеющихся карт
   def show_cards
     @name == 'dealer' ? show_others : show_cards!
   end
@@ -36,38 +35,39 @@ class Person
   # метод складывает очки за карты путем вызова высокозависимого метода
   def total_points
     @cards.each { |card| point_plus(card) }
-    # @cards.each(&@code)
-    # @points = @cards.inject(0) { |accum, card| point_plus(accum, card) }
   end
-  # изолированный метод, так-как высокая зависимость от инстанс метода класса Card
-  def point_plus(*card)
-    @points += card[0].show_value
-    # card[0] + card[1].show_value
-  end
-end
-
-require_relative 'card'
-cards = []
-
-Card::SUITS.each do |suit|
-  Card::NAMES.each_with_index do |name, index|
-   cards << Card.new(suit + name => Card::VALUES[index])
+  # изолированный метод, так-как высокая зависимость от инстанс методов класса Card
+  def point_plus(card)
+    if card.show_name.include?("A")
+      @points >= 11 ? @points += 1 : @points += 11
+    else
+      @points += card.show_value
+    end
   end
 end
 
-plaer = Person.new('Ruslan')
+# require_relative 'card'
+# cards = []
 
-2.times do |i|
-  plaer.add_card(cards[i])
-end
+# Card::SUITS.each do |suit|
+#   Card::NAMES.each_with_index do |name, index|
+#    cards << Card.new(suit + name => Card::VALUES[index])
+#   end
+# end
 
-puts plaer.name
+# plaer = Person.new('Ruslan')
 
-plaer.show_cards
+# 26.times do |i|
+#   plaer.add_card(cards[i])
+# end
 
-plaer.total_points
+# puts plaer.name
 
-p plaer.points
+# plaer.show_cards
+
+# plaer.total_points
+
+# p plaer.points
 # puts '=================================='
 
 # dealer = Person.new
