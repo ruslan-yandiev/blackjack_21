@@ -39,7 +39,7 @@ class Person
   # изолированный метод, так-как высокая зависимость от инстанс методов класса Card
   def point_plus(card)
     if card.show_name.include?("A")
-      @points >= 11 ? @points += 1 : @points += 11
+      @points > 10 ? @points += card.show_value[0] : @points += card.show_value[1]
     else
       @points += card.show_value
     end
@@ -60,7 +60,8 @@ end
 # 26.times do |i|
 #   plaer.add_card(cards[i])
 # end
-
+# # plaer.add_card(cards[12])
+# # plaer.add_card(cards[25])
 # puts plaer.name
 
 # plaer.show_cards

@@ -11,11 +11,11 @@ class Card
   end
 
   def show_value
-    @card.values.join.to_i
+    @card.values[0]
   end
 
   def show_name
-    @card.keys.join
+    @card.keys[0]
   end
 
   def to_s
