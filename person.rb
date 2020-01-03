@@ -34,41 +34,59 @@ class Person
   end
   # метод складывает очки за карты путем вызова высокозависимого метода
   def total_points
+    sort_cards
     @cards.each { |card| point_plus(card) }
   end
   # изолированный метод, так-как высокая зависимость от инстанс методов класса Card
   def point_plus(card)
     if card.show_name.include?("A")
-      @points > 10 ? @points += card.show_value[0] : @points += card.show_value[1]
+      if @points > 10 && @points != 21
+        @points += 1
+      elsif @points == 21
+        @points -= 9
+      else
+        @points += 11
+      end
+      # @points > 10 ? @points += 1 : @points += 11
     else
       @points += card.show_value
     end
   end
+  # метод сортирует массив с картами так, чтобы последними были всегда тузы, для гибкого подсчета очков
+  # метод высокозависимый от инстанс метода класса Card
+  def sort_cards
+    # @cards.sort! { |a, b| a.show_value <=> b.show_value }
+    @cards.sort_by! { |card| card.show_value }
+  end
 end
 
-# require_relative 'card'
-# cards = []
+require_relative 'card'
+cards = []
 
-# Card::SUITS.each do |suit|
-#   Card::NAMES.each_with_index do |name, index|
-#    cards << Card.new(suit + name => Card::VALUES[index])
-#   end
+Card::SUITS.each do |suit|
+  Card::NAMES.each_with_index do |name, index|
+   cards << Card.new(suit + name => Card::VALUES[index])
+  end
+end
+
+plaer = Person.new('Ruslan')
+
+# 52.times do |i|
+  # plaer.add_card(cards[i])
 # end
+plaer.add_card(cards[12])
+plaer.add_card(cards[25])
+plaer.add_card(cards[10])
 
-# plaer = Person.new('Ruslan')
+puts plaer.name
 
-# 26.times do |i|
-#   plaer.add_card(cards[i])
-# end
-# # plaer.add_card(cards[12])
-# # plaer.add_card(cards[25])
-# puts plaer.name
+plaer.show_cards
 
-# plaer.show_cards
+plaer.total_points
+puts
+puts plaer.cards
 
-# plaer.total_points
-
-# p plaer.points
+p plaer.points
 # puts '=================================='
 
 # dealer = Person.new
