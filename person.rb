@@ -67,33 +67,33 @@ class Person
   end
 end
 
-require_relative 'card'
-cards = []
+# require_relative 'card'
+# cards = []
 
-Card::SUITS.each do |suit|
-  Card::NAMES.each_with_index do |name, index|
-   cards << Card.new(suit + name => Card::VALUES[index])
-  end
-end
-
-plaer = Person.new('Ruslan')
-
-# 52.times do |i|
-  # plaer.add_card(cards[i])
+# Card::SUITS.each do |suit|
+#   Card::NAMES.each_with_index do |name, index|
+#    cards << Card.new(suit + name => Card::VALUES[index])
+#   end
 # end
-plaer.add_card(cards[12])
-plaer.add_card(cards[25])
-plaer.add_card(cards[10])
 
-puts plaer.name
+# plaer = Person.new('Ruslan')
 
-plaer.show_cards
+# # 52.times do |i|
+#   # plaer.add_card(cards[i])
+# # end
+# plaer.add_card(cards[12])
+# plaer.add_card(cards[25])
+# plaer.add_card(cards[10])
 
-plaer.total_points
-puts
-puts plaer.cards
+# puts plaer.name
 
-p plaer.points
+# plaer.show_cards
+
+# plaer.total_points
+# puts
+# puts plaer.cards
+
+# p plaer.points
 # puts '=================================='
 
 # dealer = Person.new
