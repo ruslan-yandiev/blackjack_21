@@ -8,8 +8,7 @@ class Game
   end
   # добавляет ставку в банк
   def add_bank
-    @bank += @player.bet
-    @bank += @dealer.bet
+    @bank += (@player.bet + @dealer.bet)
   end
   # метод анализирует количество очков у игроков и определяет победителя
   def analysis
