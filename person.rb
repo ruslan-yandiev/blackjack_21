@@ -33,6 +33,10 @@ class Person
     @money -= 10
   end
 
+  def add_money(money)
+    @money += money
+  end
+
   def skip_move
     "#{@name} пропускает ход"
   end
