@@ -32,14 +32,21 @@ class Person
   def change_money
     @money -= 10
   end
+
+  def skip_move
+    "#{@name} пропускает ход"
+  end
   # метод складывает очки за карты путем вызова высокозависимого метода
   def total_points
     sort_cards
     @cards.each { |card| point_plus(card) }
   end
+
+  protected
+
   # изолированный метод, так-как высокая зависимость от инстанс методов класса Card
   def point_plus(card)
-    if card.show_name.include?("A")
+    if card.show_name.include?("A") # => Подумать как отрефакторить код
       if @points > 10 && @points != 21
         @points += 1
       elsif @points == 21
