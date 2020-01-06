@@ -45,8 +45,9 @@ class Interface
       @game.analysis
     else
       @player.skip_move
+      CHOICE.delete_at(number)
       @dealer.analysis(@deck.send_card)
-      @game.analysis
+      choice
     end
   end
 

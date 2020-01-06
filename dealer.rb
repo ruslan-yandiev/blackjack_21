@@ -1,9 +1,15 @@
 class Dealer < Person
+  attr_accessor :sum
+
   def analysis(card)
-    if @points > rand(15..17)
+    @sum = 0
+
+    if @points > 16 || sum > 0
       puts skip_move
-    else
+    elsif sum.zero?
+      @sum += 1
       add_card(card)
+      total_points
     end
   end
 end

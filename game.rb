@@ -4,6 +4,7 @@ class Game
   def initialize(player, dealer)
     @player = player
     @dealer = dealer
+    @game_overme
     @bank = 0
   end
   # добавляет ставку в банк
@@ -15,15 +16,20 @@ class Game
     if @player.points == @dealer.points || @player.points > 21 && @dealer.points > 21
       open_cards
       refund
+      @dealer.sum = 0
     elsif @player.points > @dealer.points && @player.points < 22
       open_cards
       @player.add_money(20)
       restart_bank
+      @player.clear_cards
+      @dealer.sum = 0
       game_overme?
     elsif @dealer.points > @player.points && @dealer.points < 22
       open_cards
       @dealer.add_money(20)
       restart_bank
+      @dealer.clear_cards
+      @dealer.sum = 0
       game_overme?
     end
   end
@@ -31,7 +37,9 @@ class Game
   def refund
     puts 'Ничья'
     @player.add_money(10)
+    @player.clear_cards
     @dealer.add_money(10)
+    @dealer.clear_cards
     restart_bank
   end
 
@@ -47,10 +55,10 @@ class Game
   def game_overme?
     if @player.money <= 0
       puts 'Вы проиграли все деньги. Прощайте! '
-      true
+      @game_overme = true
     elsif @dealer.money <= 0
       puts 'Вы обчистили казино!'
-      true
+      @game_overme = true
     end
   end
 end

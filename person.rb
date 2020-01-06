@@ -46,6 +46,10 @@ class Person
     @cards.each { |card| point_plus(card) }
   end
 
+  def clear_cards
+    @cards.clear
+  end
+
   protected
 
   # изолированный метод, так-как высокая зависимость от инстанс методов класса Card
