@@ -14,14 +14,6 @@ module Interface
     'Пропустить ход'
   ]
 
-  # def initialize
-  #   create_cards
-  #   create_deck
-  #   create_player
-  #   create_dealer
-  #   create_game
-  # end
-
   def show_choice
     CHOICE.each_with_index do |value, index|
       puts "#{index} - #{value}"

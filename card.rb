@@ -22,9 +22,3 @@ class Card
     "Название карты: #{show_name}, Количество очков: #{show_value}"
   end
 end
-
-# Card::SUITS.each do |suit|
-#   Card::NAMES.each_with_index do |name, index|
-#    p Card.new(suit + name => Card::VALUES[index])
-#   end
-# end

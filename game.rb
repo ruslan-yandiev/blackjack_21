@@ -18,6 +18,7 @@ class Game
       refund
       @dealer.sum = 0
     elsif @player.points > @dealer.points && @player.points < 22
+      puts "\tВ раунде победил #{@player.name}"
       open_cards
       @player.add_money(20)
       restart_bank
@@ -25,6 +26,7 @@ class Game
       @dealer.sum = 0
       game_overme?
     elsif @dealer.points > @player.points && @dealer.points < 22
+      puts "\tВ раунде победил #{@dealer.name}"
       open_cards
       @dealer.add_money(20)
       restart_bank
