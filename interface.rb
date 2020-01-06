@@ -9,9 +9,9 @@ class Interface
   attr_reader :deck, :player, :dealer, :game
 
   CHOICE = [
-    'Пропустить ход',
+    'Вскрыть карты',
     'Взять карту',
-    'Вскрыть карты'
+    'Пропустить ход'
   ]
 
   def initialize
@@ -29,10 +29,25 @@ class Interface
   end
 
   def choice
-    show_choice
     puts 'Выберите номер действия'
+    show_choice
     number = gets.chomp.to_i
-    CHOICE[number]
+    choice!(number)
+  end
+
+  def choice!(number)
+    if number.zero?
+      @game.analysis
+    elsif number == 1
+      @player.add_card(@deck.send_card)
+      player_points
+      @dealer.analysis(@deck.send_card)
+      @game.analysis
+    else
+      @player.skip_move
+      @dealer.analysis(@deck.send_card)
+      @game.analysis
+    end
   end
 
   def create_cards
@@ -52,17 +67,25 @@ class Interface
     print 'Введите совё имя:'
     name = gets.strip.capitalize
     @player = Player.new(name)
+    2.times { @player.add_card(@deck.send_card) }
+    player_points
+  end
+
+  def player_points
+    puts @player.show_cards
+    @player.total_points
+    puts "Количество очков: #{@player.points}"
   end
 
   def create_dealer
     @dealer = Dealer.new
+    2.times { @dealer.add_card(@deck.send_card) }
+    puts @dealer.show_cards
+    @dealer.total_points
   end
 
   def create_game
     @game = Game.new(@player, @dealer)
+    @game.add_bank
   end
 end
-
-interface = Interface.new
-interface.show_choice
-interface::CHOICE['Вскрыть карты']
