@@ -21,7 +21,7 @@ class Person
   end
 
   def show_others
-    @cards.each { print ' * ' }
+    print "* *"
   end
   # метод делает ставку
   def bet

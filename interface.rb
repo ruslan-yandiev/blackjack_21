@@ -5,8 +5,8 @@ require_relative 'dealer'
 require_relative 'player'
 require_relative 'game'
 
-class Interface
-  attr_reader :deck, :player, :dealer, :game
+module Interface
+  # attr_reader :deck, :player, :dealer, :game
 
   CHOICE = [
     'Вскрыть карты',
@@ -14,16 +14,24 @@ class Interface
     'Пропустить ход'
   ]
 
-  def initialize
-    create_cards
-    create_deck
-    create_player
-    create_dealer
-    create_game
+  # def initialize
+    @choice = []
+  #   create_cards
+  #   create_deck
+  #   create_player
+  #   create_dealer
+  #   create_game
+  # end
+
+  def add_choice
+    CHOICE.each { |ch| @choice << ch }
   end
 
   def show_choice
-    CHOICE.each_with_index do |value, index|
+    @choice.clear
+    add_choice
+
+    @choice.each_with_index do |value, index|
       puts "#{index} - #{value}"
     end
   end
@@ -45,7 +53,7 @@ class Interface
       @game.analysis
     else
       @player.skip_move
-      CHOICE.delete_at(number)
+      @choice.delete_at(number)
       @dealer.analysis(@deck.send_card)
       choice
     end
@@ -61,6 +69,7 @@ class Interface
 
   def create_deck
     @deck = Deck.new
+    @deck.clear_deck
     @deck.add_card
   end
 
@@ -73,16 +82,18 @@ class Interface
   end
 
   def player_points
-    puts @player.show_cards
+    @player.show_cards
     @player.total_points
-    puts "Количество очков: #{@player.points}"
+    puts "Всего очков: #{@player.points}"
+    puts
   end
 
   def create_dealer
     @dealer = Dealer.new
     2.times { @dealer.add_card(@deck.send_card) }
-    puts @dealer.show_cards
+    @dealer.show_cards
     @dealer.total_points
+    puts
   end
 
   def create_game

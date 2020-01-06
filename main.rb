@@ -1,5 +1,8 @@
 require_relative 'interface'
+include Interface
 
-interface = Interface.new
-
-interface.choice
+create_cards
+create_deck
+create_player
+create_dealer
+create_game
