@@ -6,3 +6,4 @@ create_deck
 create_player
 create_dealer
 create_game
+choice

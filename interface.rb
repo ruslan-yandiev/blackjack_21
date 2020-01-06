@@ -15,7 +15,6 @@ module Interface
   ]
 
   # def initialize
-    @choice = []
   #   create_cards
   #   create_deck
   #   create_player
@@ -23,15 +22,8 @@ module Interface
   #   create_game
   # end
 
-  def add_choice
-    CHOICE.each { |ch| @choice << ch }
-  end
-
   def show_choice
-    @choice.clear
-    add_choice
-
-    @choice.each_with_index do |value, index|
+    CHOICE.each_with_index do |value, index|
       puts "#{index} - #{value}"
     end
   end
@@ -45,15 +37,16 @@ module Interface
 
   def choice!(number)
     if number.zero?
+      points_analysis
       @game.analysis
     elsif number == 1
       @player.add_card(@deck.send_card)
-      player_points
       @dealer.analysis(@deck.send_card)
+      points_analysis
       @game.analysis
     else
       @player.skip_move
-      @choice.delete_at(number)
+      CHOICE.delete_at(number)
       @dealer.analysis(@deck.send_card)
       choice
     end
@@ -78,22 +71,18 @@ module Interface
     name = gets.strip.capitalize
     @player = Player.new(name)
     2.times { @player.add_card(@deck.send_card) }
-    player_points
-  end
-
-  def player_points
     @player.show_cards
-    @player.total_points
-    puts "Всего очков: #{@player.points}"
-    puts
   end
 
   def create_dealer
     @dealer = Dealer.new
     2.times { @dealer.add_card(@deck.send_card) }
     @dealer.show_cards
+  end
+
+  def points_analysis
+    @player.total_points
     @dealer.total_points
-    puts
   end
 
   def create_game

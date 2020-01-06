@@ -44,8 +44,14 @@ class Game
   end
 
   def open_cards
+    puts 'Ваши карты:'
     @player.show_cards!
+    puts "Очки: #{@player.points}"
+    puts
+    puts 'Карты дилера:'
     @dealer.show_cards!
+    puts "Очки: #{@dealer.points}"
+    puts
   end
 
   def restart_bank

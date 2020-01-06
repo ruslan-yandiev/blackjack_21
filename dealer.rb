@@ -9,7 +9,6 @@ class Dealer < Person
     elsif sum.zero?
       @sum += 1
       add_card(card)
-      total_points
     end
   end
 end
