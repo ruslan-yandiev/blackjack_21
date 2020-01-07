@@ -12,8 +12,13 @@ module Interface
     'Пропустить ход'
   ]
 
+  def add_choice
+    @choice = []
+    CHOICE.each { |i| @choice << i }
+  end
+
   def show_choice
-    CHOICE.each_with_index do |value, index|
+    @choice.each_with_index do |value, index|
       puts "#{index} - #{value}"
     end
   end
@@ -30,15 +35,17 @@ module Interface
       @player.total_points
       @dealer.total_points if @dealer.points.zero?
       @game.analysis
+      @choice.clear
     elsif number == 1
       @player.add_card(@deck.send_card)
       puts "Я взял карту: #{@player.cards[2]}"
       @dealer.analys(@deck.send_card)
       @player.total_points
       @game.analysis
+      @choice.clear
     else
       @player.skip_move
-      CHOICE.delete_at(number)
+      @choice.delete_at(number)
       @dealer.analys(@deck.send_card)
       choice
     end
