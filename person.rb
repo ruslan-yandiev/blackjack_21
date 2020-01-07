@@ -21,7 +21,7 @@ class Person
   end
 
   def show_others
-    print "* *"
+    puts " * * \n"
   end
   # метод делает ставку
   def bet
@@ -38,7 +38,7 @@ class Person
   end
 
   def skip_move
-    "#{@name} пропускает ход"
+    "\n#{@name} пропускает ход\n\n"
   end
   # метод складывает очки за карты путем вызова высокозависимого метода
   def total_points

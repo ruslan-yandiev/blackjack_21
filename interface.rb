@@ -19,7 +19,7 @@ module Interface
   end
 
   def choice
-    puts 'Выберите номер действия'
+    puts "\nВыберите номер действия\n"
     show_choice
     number = gets.chomp.to_i
     choice!(number)
@@ -28,15 +28,14 @@ module Interface
   def choice!(number)
     if number.zero?
       @player.total_points
-      @dealer.total_points
+      @dealer.total_points if @dealer.points.zero?
       @game.analysis
     elsif number == 1
       @player.add_card(@deck.send_card)
       puts "Я взял карту: #{@player.cards[2]}"
       @dealer.analys(@deck.send_card)
-      points_analysis
+      @player.total_points
       @game.analysis
-      puts "Игра сыграна!!!!!"
     else
       @player.skip_move
       CHOICE.delete_at(number)
@@ -72,21 +71,22 @@ module Interface
     name = gets.strip.capitalize
     @player = Player.new(name)
     2.times { @player.add_card(@deck.send_card) }
-    puts 'Ваши карты:'
+    puts 'Мои карты:'
     @player.show_cards
+    points_analysis
   end
 
   def create_dealer
     @dealer = Dealer.new
     2.times { @dealer.add_card(@deck.send_card) }
-    puts 'Карты дилера:'
-    @dealer.show_cards!
+    print "\nКарты дилера:"
+    @dealer.show_cards
   end
 
   def points_analysis
     @player.total_points
-    puts "Мои очки #{@player.points}"
-    puts "Дилера очки #{@dealer.points}"
+    puts "Мои очки #{@player.points}\n"
+    @player.restart_points
   end
 
   def create_game
