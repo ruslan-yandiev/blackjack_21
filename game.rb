@@ -16,7 +16,7 @@ class Game
     if @player.points == @dealer.points || @player.points > 21 && @dealer.points > 21
       open_cards
       refund
-    elsif @player.points > @dealer.points && @player.points < 22
+    elsif @player.points > @dealer.points && @player.points < 22 || @player.points < @dealer.points && @dealer.points > 21
       puts "\tВ раунде победил #{@player.name}"
       open_cards
       @player.add_money(20)
@@ -25,7 +25,7 @@ class Game
       @player.clear_cards
       @dealer.clear_cards
       game_overme?
-    elsif @dealer.points > @player.points && @dealer.points < 22
+    elsif @dealer.points > @player.points && @dealer.points < 22 || @dealer.points < @player.points && @player.points > 21
       puts "\tВ раунде победил #{@dealer.name}"
       open_cards
       @dealer.add_money(20)
@@ -36,7 +36,7 @@ class Game
       game_overme?
     end
   end
-  # метод возвращает ставки и вызывает метод обнуления банка
+  # метод возвращает ставки и вызывает метод обнуления банка и очков
   def refund
     puts 'Ничья'
     @player.add_money(10)
