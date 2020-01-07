@@ -6,8 +6,6 @@ require_relative 'player'
 require_relative 'game'
 
 module Interface
-  # attr_reader :deck, :player, :dealer, :game
-
   CHOICE = [
     'Вскрыть карты',
     'Взять карту',
@@ -33,15 +31,23 @@ module Interface
       @game.analysis
     elsif number == 1
       @player.add_card(@deck.send_card)
-      @dealer.analysis(@deck.send_card)
+      @dealer.analys(@deck.send_card)
       points_analysis
       @game.analysis
     else
       @player.skip_move
       CHOICE.delete_at(number)
-      @dealer.analysis(@deck.send_card)
+      @dealer.analys(@deck.send_card)
       choice
     end
+  end
+
+  def create
+    create_cards
+    create_deck
+    create_player
+    create_dealer
+    create_game
   end
 
   def create_cards
@@ -63,13 +69,15 @@ module Interface
     name = gets.strip.capitalize
     @player = Player.new(name)
     2.times { @player.add_card(@deck.send_card) }
+    puts 'Ваши карты:'
     @player.show_cards
   end
 
   def create_dealer
     @dealer = Dealer.new
     2.times { @dealer.add_card(@deck.send_card) }
-    @dealer.show_cards
+    puts 'Карты дилера:'
+    @dealer.show_cards!
   end
 
   def points_analysis

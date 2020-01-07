@@ -1,14 +1,11 @@
 class Dealer < Person
-  attr_accessor :sum
-
-  def analysis(card)
-    @sum = 0
-
-    if @points > 16 || sum > 0
+  def analys(card)
+    @card ||= card
+    if @points > 16 || @cards.size > 2
       puts skip_move
-    elsif sum.zero?
-      @sum += 1
-      add_card(card)
+    else
+      puts 'дилер взял карту'
+      add_card(@card)
     end
   end
 end

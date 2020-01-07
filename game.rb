@@ -16,22 +16,23 @@ class Game
     if @player.points == @dealer.points || @player.points > 21 && @dealer.points > 21
       open_cards
       refund
-      @dealer.sum = 0
     elsif @player.points > @dealer.points && @player.points < 22
       puts "\tВ раунде победил #{@player.name}"
       open_cards
       @player.add_money(20)
       restart_bank
+      restart_points!
       @player.clear_cards
-      @dealer.sum = 0
+      @dealer.clear_cards
       game_overme?
     elsif @dealer.points > @player.points && @dealer.points < 22
       puts "\tВ раунде победил #{@dealer.name}"
       open_cards
       @dealer.add_money(20)
       restart_bank
+      restart_points!
       @dealer.clear_cards
-      @dealer.sum = 0
+      @player.clear_cards
       game_overme?
     end
   end
@@ -43,6 +44,7 @@ class Game
     @dealer.add_money(10)
     @dealer.clear_cards
     restart_bank
+    restart_points!
   end
 
   def open_cards
@@ -54,6 +56,11 @@ class Game
     @dealer.show_cards!
     puts "Очки: #{@dealer.points}"
     puts
+  end
+
+  def restart_points!
+    @player.restart_points
+    @dealer.restart_points
   end
 
   def restart_bank

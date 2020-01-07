@@ -46,15 +46,18 @@ class Person
     @cards.each { |card| point_plus(card) }
   end
 
+  def restart_points
+    @points = 0
+  end
+
   def clear_cards
     @cards.clear
   end
 
   protected
 
-  # изолированный метод, так-как высокая зависимость от инстанс методов класса Card
   def point_plus(card)
-    if card.show_name.include?("A") # => Подумать как отрефакторить код
+    if card.show_name.include?("A")
       if @points > 10 && @points != 21
         @points += 1
       elsif @points == 21
@@ -62,15 +65,12 @@ class Person
       else
         @points += 11
       end
-      # @points > 10 ? @points += 1 : @points += 11
     else
       @points += card.show_value
     end
   end
   # метод сортирует массив с картами так, чтобы последними были всегда тузы, для гибкого подсчета очков
-  # метод высокозависимый от инстанс метода класса Card
   def sort_cards
-    # @cards.sort! { |a, b| a.show_value <=> b.show_value }
     @cards.sort_by! { |card| card.show_value }
   end
 end
