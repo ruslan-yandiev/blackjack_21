@@ -19,10 +19,13 @@ class Game
     if @player.points == @dealer.points || @player.points > 21 && @dealer.points > 21
       puts "\tНичья!"
       refund
-    elsif @player.points > @dealer.points && @player.points < 22 || @player.points < @dealer.points && @dealer.points > 21
+    elsif @player.points > 21
+      puts "\tВ раунде победил #{@dealer.name}!"
+      dealer_victory
+    elsif @player.points > 21 || @player.points > @dealer.points
       puts "\tВ раунде победил #{@player.name}!"
       player_victory
-    elsif @dealer.points > @player.points && @dealer.points < 22 || @dealer.points < @player.points && @player.points > 21
+    else
       puts "\tВ раунде победил #{@dealer.name}!"
       dealer_victory
     end
