@@ -59,6 +59,23 @@ module Interface
     create_game
   end
 
+  def start
+    create
+    add_choice
+    choice
+  end
+
+  def new_start
+    add_choice
+    @deck.clear_deck
+    @deck.add_card
+    add_player_cards
+    add_dealer_cards
+    player_info
+    dealer_info
+    choice
+  end
+
   def create_cards
     Card::SUITS.each do |suit|
       Card::NAMES.each_with_index do |name, index|
@@ -77,15 +94,31 @@ module Interface
     print 'Введите совё имя:'
     name = gets.strip.capitalize
     @player = Player.new(name)
+    add_player_cards
+    player_info
+  end
+
+  def create_dealer
+    @dealer = Dealer.new
+    add_dealer_cards
+    dealer_info
+  end
+
+  def add_player_cards
     2.times { @player.add_card(@deck.send_card) }
+  end
+
+  def add_dealer_cards
+    2.times { @dealer.add_card(@deck.send_card) }
+  end
+
+  def player_info
     puts 'Мои карты:'
     @player.show_cards
     points_analysis
   end
 
-  def create_dealer
-    @dealer = Dealer.new
-    2.times { @dealer.add_card(@deck.send_card) }
+  def dealer_info
     print "\nКарты дилера:"
     @dealer.show_cards
   end
