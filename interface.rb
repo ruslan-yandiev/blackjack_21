@@ -9,6 +9,8 @@ require_relative 'game'
 
 # module Interface
 module Interface
+  module_function
+
   CHOICE = [
     'Вскрыть карты',
     'Взять карту',

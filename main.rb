@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 require_relative 'interface'
-include Interface
 
-start
+Interface.start
 
 loop do
   print 'Если хотите продолжить игру нажмите Enter:'
@@ -11,5 +10,5 @@ loop do
   option = gets.chomp
   break unless option == ''
 
-  new_start
+  Interface.new_start
 end
