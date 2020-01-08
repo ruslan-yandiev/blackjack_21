@@ -7,7 +7,6 @@ class Game
   def initialize(player, dealer)
     @player = player
     @dealer = dealer
-    @game_overme = false
     @bank = 0
   end
 
@@ -98,10 +97,10 @@ class Game
   def game_overme?
     if @player.money <= 0
       puts 'Вы проиграли все деньги. Прощайте! '
-      @game_overme = true
+      exit
     elsif @dealer.money <= 0
       puts 'Вы обчистили казино!'
-      @game_overme = true
+      exit
     end
   end
 end

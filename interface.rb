@@ -98,9 +98,14 @@ module Interface
   end
 
   def create_player
-    print 'Введите совё имя:'
-    name = gets.strip.capitalize
-    @player = Player.new(name)
+    begin
+      print 'Введите совё имя:'
+      @name = gets.strip.capitalize
+      @player = Player.new(@name)
+    rescue RuntimeError => e
+      puts e
+      retry
+    end
     puts "\nЗдраствуйте #{@player.name}\n\n"
     add_player_cards
     player_info

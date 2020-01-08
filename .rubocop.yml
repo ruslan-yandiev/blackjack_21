@@ -9,7 +9,7 @@ Metrics/LineLength:
   Max: 125
 
 Metrics/ModuleLength:
-  Max: 115
+  Max: 120
 
 Metrics/MethodLength:
   Max: 20
