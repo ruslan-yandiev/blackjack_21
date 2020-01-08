@@ -1,17 +1,20 @@
+# frozen_string_literal: true
+
+# class Game
 class Game
   attr_reader :player, :dealer
 
   def initialize(player, dealer)
     @player = player
     @dealer = dealer
-    @game_overme
+    @game_overme = false
     @bank = 0
   end
-  # добавляет ставку в банк
+
   def add_bank
     @bank += (@player.bet + @dealer.bet)
   end
-  # метод анализирует количество очков у игроков и определяет победителя
+
   def analysis
     if @player.points == @dealer.points || @player.points > 21 && @dealer.points > 21
       puts "\tНичья!"
@@ -24,7 +27,7 @@ class Game
       dealer_victory
     end
   end
-  # метод возвращает ставки и вызывает метод обнуления банка и очков
+
   def refund
     @player.add_money(10)
     open_player_cards

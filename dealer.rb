@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# class Dealer
 class Dealer < Person
   def analys(card)
     total_points if @points.zero?

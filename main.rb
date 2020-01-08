@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'interface'
 include Interface
 
@@ -11,4 +13,3 @@ loop do
 
   new_start
 end
-

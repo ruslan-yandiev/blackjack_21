@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'card'
 require_relative 'deck'
 require_relative 'person'
@@ -5,12 +7,13 @@ require_relative 'dealer'
 require_relative 'player'
 require_relative 'game'
 
+# module Interface
 module Interface
   CHOICE = [
     'Вскрыть карты',
     'Взять карту',
     'Пропустить ход'
-  ]
+  ].freeze
 
   def add_choice
     @choice = []
@@ -81,7 +84,7 @@ module Interface
   def create_cards
     Card::SUITS.each do |suit|
       Card::NAMES.each_with_index do |name, index|
-       Deck.add_card(Card.new(suit + name => Card::VALUES[index]))
+        Deck.add_card(Card.new(suit + name => Card::VALUES[index]))
       end
     end
   end

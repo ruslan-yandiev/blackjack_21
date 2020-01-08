@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# class Person
 class Person
   attr_reader :cards, :name, :money, :points
 
@@ -7,11 +10,11 @@ class Person
     @money = 100
     @points = 0
   end
-  # метод добавляет по одному объекту класса Card в массив
+
   def add_card(card)
     @cards << card
   end
-  # покажет объекты если имеется любое имя ирока кроме имени dealer, иначе вернёт * в количестве имеющихся карт
+
   def show_cards
     @name == 'dealer' ? show_others : show_cards!
   end
@@ -23,12 +26,12 @@ class Person
   def show_others
     puts " * * \n"
   end
-  # метод делает ставку
+
   def bet
     change_money
     10
   end
-  # метод вычитает поставленные деньги
+
   def change_money
     @money -= 10
   end
@@ -40,7 +43,7 @@ class Person
   def skip_move
     "\n#{@name} пропускает ход\n\n"
   end
-  # метод складывает очки за карты путем вызова высокозависимого метода
+
   def total_points
     sort_cards
     @cards.each { |card| point_plus(card) }
@@ -57,7 +60,7 @@ class Person
   protected
 
   def point_plus(card)
-    if card.show_name.include?("A")
+    if card.show_name.include?('A')
       if @points > 10 && @points != 21
         @points += 1
       elsif @points == 21
@@ -69,8 +72,8 @@ class Person
       @points += card.show_value
     end
   end
-  # метод сортирует массив с картами так, чтобы последними были всегда тузы, для гибкого подсчета очков
+
   def sort_cards
-    @cards.sort_by! { |card| card.show_value }
+    @cards.sort_by!(&:show_value)
   end
 end
