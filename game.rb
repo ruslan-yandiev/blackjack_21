@@ -14,30 +14,32 @@ class Game
   # метод анализирует количество очков у игроков и определяет победителя
   def analysis
     if @player.points == @dealer.points || @player.points > 21 && @dealer.points > 21
-      puts "\tНичья!!!"
-      open_cards
+      puts "\tНичья!"
       refund
     elsif @player.points > @dealer.points && @player.points < 22 || @player.points < @dealer.points && @dealer.points > 21
-      puts "\tВ раунде победил #{@player.name}!!!"
+      puts "\tВ раунде победил #{@player.name}!"
       player_victory
     elsif @dealer.points > @player.points && @dealer.points < 22 || @dealer.points < @player.points && @player.points > 21
-      puts "\tВ раунде победил #{@dealer.name}!!!"
+      puts "\tВ раунде победил #{@dealer.name}!"
       dealer_victory
     end
   end
   # метод возвращает ставки и вызывает метод обнуления банка и очков
   def refund
     @player.add_money(10)
+    open_player_cards
     @player.clear_cards
     @dealer.add_money(10)
+    open_dealer_cards
     @dealer.clear_cards
     restart_bank
     restart_points!
   end
 
   def player_victory
-    open_cards
     @player.add_money(20)
+    open_player_cards
+    open_dealer_cards
     restart_bank
     restart_points!
     @player.clear_cards
@@ -46,8 +48,9 @@ class Game
   end
 
   def dealer_victory
-    open_cards
     @dealer.add_money(20)
+    open_player_cards
+    open_dealer_cards
     restart_bank
     restart_points!
     @dealer.clear_cards
@@ -55,15 +58,18 @@ class Game
     game_overme?
   end
 
-  def open_cards
-    puts 'Ваши карты:'
+  def open_player_cards
+    puts 'Мои карты:'
     @player.show_cards!
     puts "Очки: #{@player.points}"
-    puts
+    puts "Баланс: #{@player.money}$\n\n"
+  end
+
+  def open_dealer_cards
     puts 'Карты дилера:'
     @dealer.show_cards!
     puts "Очки: #{@dealer.points}"
-    puts
+    puts "Баланс: #{@dealer.money}$\n\n"
   end
 
   def restart_points!

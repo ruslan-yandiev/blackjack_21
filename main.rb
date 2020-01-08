@@ -4,7 +4,7 @@ include Interface
 start
 
 loop do
-  print "Хотите продолжить игру? есди да нажмите Enter: "
+  print 'Если хотите продолжить игру нажмите Enter:'
 
   option = gets.chomp
   break unless option == ''

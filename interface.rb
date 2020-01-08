@@ -60,12 +60,14 @@ module Interface
   end
 
   def start
+    puts "\nДобро пожаловать в игру 'blackjack_21'\n\n"
     create
     add_choice
     choice
   end
 
   def new_start
+    @game.add_bank
     add_choice
     @deck.clear_deck
     @deck.add_card
@@ -94,6 +96,7 @@ module Interface
     print 'Введите совё имя:'
     name = gets.strip.capitalize
     @player = Player.new(name)
+    puts "\nЗдраствуйте #{@player.name}\n\n"
     add_player_cards
     player_info
   end
