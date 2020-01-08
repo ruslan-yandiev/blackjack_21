@@ -28,51 +28,49 @@ class Game
     end
   end
 
+  protected
+
   def refund
     @player.add_money(10)
-    open_player_cards
-    @player.clear_cards
     @dealer.add_money(10)
-    open_dealer_cards
-    @dealer.clear_cards
-    restart_bank
-    restart_points!
+    show_all_cards
+    all_restart
+    all_clear_cards
   end
 
   def player_victory
     @player.add_money(20)
-    open_player_cards
-    open_dealer_cards
-    restart_bank
-    restart_points!
-    @player.clear_cards
-    @dealer.clear_cards
+    show_all_cards
+    all_restart
+    all_clear_cards
     game_overme?
   end
 
   def dealer_victory
     @dealer.add_money(20)
-    open_player_cards
-    open_dealer_cards
-    restart_bank
-    restart_points!
-    @dealer.clear_cards
-    @player.clear_cards
+    show_all_cards
+    all_restart
+    all_clear_cards
     game_overme?
   end
 
-  def open_player_cards
+  def show_player_cards
     puts 'Мои карты:'
     @player.show_cards!
     puts "Очки: #{@player.points}"
     puts "Баланс: #{@player.money}$\n\n"
   end
 
-  def open_dealer_cards
+  def show_dealer_cards
     puts 'Карты дилера:'
     @dealer.show_cards!
     puts "Очки: #{@dealer.points}"
     puts "Баланс: #{@dealer.money}$\n\n"
+  end
+
+  def show_all_cards
+    show_player_cards
+    show_dealer_cards
   end
 
   def restart_points!
@@ -82,6 +80,16 @@ class Game
 
   def restart_bank
     @bank = 0
+  end
+
+  def all_restart
+    restart_bank
+    restart_points!
+  end
+
+  def all_clear_cards
+    @player.clear_cards
+    @dealer.clear_cards
   end
 
   def game_overme?
