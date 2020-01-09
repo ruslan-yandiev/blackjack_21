@@ -44,7 +44,7 @@ class Game
     show_all_cards
     all_restart
     all_clear_cards
-    game_overme?
+    game_overme
   end
 
   def dealer_victory
@@ -53,7 +53,7 @@ class Game
     show_all_cards
     all_restart
     all_clear_cards
-    game_overme?
+    game_overme
   end
 
   def restart_points!
@@ -140,7 +140,7 @@ class Game
   def create_player
     begin
       player_name
-      @player = Player.new(@name) #????
+      @player = Player.new(@name)
     rescue RuntimeError => e
       puts e
       retry
@@ -171,12 +171,12 @@ class Game
     2.times { @dealer.add_card(@deck.send_card) }
   end
 
-  def game_overme?
+  def game_overme
     if @player.money <= 0
-      puts 'Вы проиграли все деньги. Прощайте! '
+      messange_game
       exit
     elsif @dealer.money <= 0
-      puts 'Вы обчистили казино!'
+      messange_game(1)
       exit
     end
   end

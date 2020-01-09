@@ -8,8 +8,8 @@ Ruby:
 Metrics/LineLength:
   Max: 125
 
-Metrics/ModuleLength:
-  Max: 120
+Metrics/ClassLength:
+  Max: 160
 
 Metrics/MethodLength:
   Max: 20

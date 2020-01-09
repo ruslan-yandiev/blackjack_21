@@ -8,7 +8,6 @@ require_relative 'player'
 
 # module Interface
 module Interface
-
   CHOICE = [
     'Вскрыть карты',
     'Взять карту',
@@ -65,6 +64,14 @@ module Interface
       puts "\tНичья!"
     else
       puts "\tВ раунде победил #{name}!"
+    end
+  end
+
+  def messange_game(arg = nil)
+    if arg.nil?
+      puts 'Вы проиграли все деньги. Прощайте! '
+    else
+      puts 'Вы обчистили казино!'
     end
   end
 
