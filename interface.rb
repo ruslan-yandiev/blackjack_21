@@ -44,12 +44,15 @@ module Interface
   def player_info
     puts 'Мои карты:'
     @player.show_cards
-    points_analysis
   end
 
   def dealer_info
     print "\nКарты дилера:"
     @dealer.show_cards
+  end
+
+  def show_me_points
+    puts "Мои очки #{@player.points}\n"
   end
 
   def player_name
@@ -63,6 +66,24 @@ module Interface
     else
       puts "\tВ раунде победил #{name}!"
     end
+  end
+
+  def show_player_cards
+    player_info
+    show_me_points
+    puts "Баланс: #{@player.money}$\n\n"
+  end
+
+  def show_dealer_cards
+    puts 'Карты дилера:'
+    @dealer.show_cards!
+    puts "Очки: #{@dealer.points}"
+    puts "Баланс: #{@dealer.money}$\n\n"
+  end
+
+  def show_all_cards
+    show_player_cards
+    show_dealer_cards
   end
 
   def show_add_card

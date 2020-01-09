@@ -9,8 +9,8 @@ class Game
   attr_reader :player, :dealer
 
   def initialize
-    start
     @bank = 0
+    start
   end
 
   def add_bank
@@ -54,25 +54,6 @@ class Game
     all_restart
     all_clear_cards
     game_overme?
-  end
-
-  def show_player_cards
-    puts 'Мои карты:'
-    @player.show_cards!
-    puts "Очки: #{@player.points}"
-    puts "Баланс: #{@player.money}$\n\n"
-  end
-
-  def show_dealer_cards
-    puts 'Карты дилера:'
-    @dealer.show_cards!
-    puts "Очки: #{@dealer.points}"
-    puts "Баланс: #{@dealer.money}$\n\n"
-  end
-
-  def show_all_cards
-    show_player_cards
-    show_dealer_cards
   end
 
   def restart_points!
@@ -138,6 +119,7 @@ class Game
     add_player_cards
     add_dealer_cards
     player_info
+    points_analysis
     dealer_info
     choice
   end
@@ -152,7 +134,6 @@ class Game
 
   def create_deck
     @deck = Deck.new
-    @deck.clear_deck
     @deck.add_card
   end
 
@@ -167,6 +148,7 @@ class Game
     hi_player
     add_player_cards
     player_info
+    points_analysis
   end
 
   def create_dealer
@@ -177,7 +159,7 @@ class Game
 
   def points_analysis
     @player.total_points
-    puts "Мои очки #{@player.points}\n"
+    show_me_points
     @player.restart_points
   end
 
