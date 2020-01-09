@@ -29,6 +29,21 @@ class Game
     end
   end
 
+  def new_start
+    add_bank
+    add_choice
+    @deck.clear_deck
+    @deck.add_card
+    add_player_cards
+    add_dealer_cards
+    player_info
+    points_analysis
+    dealer_info
+    choice
+  end
+
+  protected
+
   def refund
     message_win
     @player.add_money(10)
@@ -108,19 +123,6 @@ class Game
     welcome
     create
     add_choice
-    choice
-  end
-
-  def new_start
-    add_bank
-    add_choice
-    @deck.clear_deck
-    @deck.add_card
-    add_player_cards
-    add_dealer_cards
-    player_info
-    points_analysis
-    dealer_info
     choice
   end
 
