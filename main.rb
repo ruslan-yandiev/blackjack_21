@@ -1,6 +1,5 @@
 # frozen_string_literal: true
-
-require_relative 'interface'
+require_relative 'game'
 
 Interface.start
 
