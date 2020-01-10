@@ -175,10 +175,10 @@ class Game
   end
 
   def game_overme!
-    if @player.money <= 80
+    if @player.money <= 0
       messange_game
       @game_overme = true
-    elsif @dealer.money <= 80
+    elsif @dealer.money <= 0
       messange_game(1)
       @game_overme = true
     end
