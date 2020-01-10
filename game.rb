@@ -130,7 +130,7 @@ class Game
   def create_cards
     Card::SUITS.each do |suit|
       Card::NAMES.each_with_index do |name, index|
-        Deck.add_card(Card.new(suit + name => Card::VALUES[index]))
+        Deck.add_card(Card.new(suit + name, Card::VALUES[index]))
       end
     end
   end

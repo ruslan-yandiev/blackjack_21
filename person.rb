@@ -60,7 +60,7 @@ class Person
   protected
 
   def point_plus(card)
-    if card.show_name.include?('A')
+    if card.name.include?('A')
       if @points > 10 && @points != 21
         @points += 1
       elsif @points == 21
@@ -69,11 +69,11 @@ class Person
         @points += 11
       end
     else
-      @points += card.show_value
+      @points += card.value
     end
   end
 
   def sort_cards
-    @cards.sort_by!(&:show_value)
+    @cards.sort_by!(&:value)
   end
 end
