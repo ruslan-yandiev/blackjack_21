@@ -6,10 +6,9 @@ class Dealer < Person
     total_points if @points.zero?
 
     if @points > 16 || @cards.size > 2
-      puts skip_move
+      0
     else
       add_card(card)
-      puts "\nДилер взял карту: *\n\n"
       restart_points
       total_points
     end

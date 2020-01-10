@@ -96,4 +96,12 @@ module Interface
   def show_add_card
     puts "Я взял карту: #{@player.cards[2]}"
   end
+
+  def dealer_choce(arg = nil)
+    if arg.nil?
+      puts @dealer.skip_move
+    else
+      puts "\nДилер взял карту: *\n\n"
+    end
+  end
 end

@@ -6,9 +6,10 @@ require_relative 'interface'
 class Game
   include Interface
 
-  attr_reader :player, :dealer
+  attr_reader :player, :dealer, :game_overme
 
   def initialize
+    @game_overme = false
     @bank = 0
     start
   end
@@ -34,8 +35,8 @@ class Game
     add_choice
     @deck.clear_deck
     @deck.add_card
-    add_player_cards
-    add_dealer_cards
+    add_cards
+    add_cards(1)
     player_info
     points_analysis
     dealer_info
@@ -59,7 +60,7 @@ class Game
     show_all_cards
     all_restart
     all_clear_cards
-    game_overme
+    game_overme!
   end
 
   def dealer_victory
@@ -68,7 +69,7 @@ class Game
     show_all_cards
     all_restart
     all_clear_cards
-    game_overme
+    game_overme!
   end
 
   def restart_points!
@@ -99,14 +100,14 @@ class Game
     elsif number == 1
       @player.add_card(@deck.send_card)
       show_add_card
-      @dealer.analys(@deck.send_card)
+      @dealer.analys(@deck.send_card) == 0 ? dealer_choce : dealer_choce(1)
       @player.total_points
       analysis
       @choice.clear
     else
       @player.skip_move
       @choice.delete_at(number)
-      @dealer.analys(@deck.send_card)
+      @dealer.analys(@deck.send_card) == 0 ? dealer_choce : dealer_choce(1)
       choice
     end
   end
@@ -148,14 +149,14 @@ class Game
       retry
     end
     hi_player
-    add_player_cards
+    add_cards
     player_info
     points_analysis
   end
 
   def create_dealer
     @dealer = Dealer.new
-    add_dealer_cards
+    add_cards(1)
     dealer_info
   end
 
@@ -165,21 +166,21 @@ class Game
     @player.restart_points
   end
 
-  def add_player_cards
-    2.times { @player.add_card(@deck.send_card) }
+  def add_cards(arg = nil)
+    if arg.nil?
+      2.times { @player.add_card(@deck.send_card) }
+    else
+      2.times { @dealer.add_card(@deck.send_card) }
+    end
   end
 
-  def add_dealer_cards
-    2.times { @dealer.add_card(@deck.send_card) }
-  end
-
-  def game_overme
-    if @player.money <= 0
+  def game_overme!
+    if @player.money <= 80
       messange_game
-      exit
-    elsif @dealer.money <= 0
+      @game_overme = true
+    elsif @dealer.money <= 80
       messange_game(1)
-      exit
+      @game_overme = true
     end
   end
 end

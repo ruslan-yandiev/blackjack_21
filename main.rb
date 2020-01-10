@@ -2,13 +2,21 @@
 
 require_relative 'game'
 
-game = Game.new
-
 loop do
-  print 'Если хотите продолжить игру нажмите Enter:'
+  game = Game.new
 
-  option = gets.chomp
-  break unless option == ''
+  loop do
+    print 'Если хотите продолжить игру нажмите Enter:'
 
-  game.new_start
+    option = gets.chomp
+    break unless option == ''
+
+    game.new_start
+    break if game.game_overme == true
+  end
+
+  puts 'Хотите ли начать новую игру? (да/нет)'
+  answer = gets.chomp
+
+  break unless answer == 'да'
 end
