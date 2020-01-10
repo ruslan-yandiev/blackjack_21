@@ -23,7 +23,7 @@ class Game
       refund
     elsif @player.points > 21
       dealer_victory
-    elsif @player.points > 21 || @player.points > @dealer.points
+    elsif @dealer.points > 21 || @player.points > @dealer.points
       player_victory
     else
       dealer_victory
@@ -35,8 +35,8 @@ class Game
     add_choice
     @deck.clear_deck
     @deck.add_card
-    add_cards
-    add_cards(1)
+    add_cards(@player)
+    add_cards(@dealer)
     player_info
     points_analysis
     dealer_info
@@ -149,14 +149,14 @@ class Game
       retry
     end
     hi_player
-    add_cards
+    add_cards(@player)
     player_info
     points_analysis
   end
 
   def create_dealer
     @dealer = Dealer.new
-    add_cards(1)
+    add_cards(@dealer)
     dealer_info
   end
 
@@ -166,12 +166,8 @@ class Game
     @player.restart_points
   end
 
-  def add_cards(arg = nil)
-    if arg.nil?
-      2.times { @player.add_card(@deck.send_card) }
-    else
-      2.times { @dealer.add_card(@deck.send_card) }
-    end
+  def add_cards(user)
+    2.times { user.add_card(@deck.send_card) }
   end
 
   def game_overme!
