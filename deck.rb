@@ -2,18 +2,13 @@
 
 # class Deck
 class Deck
-  @@cards = []
-
   def initialize
     @cards = []
+    create_cards
   end
 
-  def self.add_card(card)
-    @@cards << card
-  end
-
-  def add_card
-    @@cards.each { |card| @cards << card }
+  def add_card(card)
+    @cards << card
   end
 
   def send_card
@@ -24,7 +19,11 @@ class Deck
     rand(@cards.size)
   end
 
-  def clear_deck
-    @cards.clear
+  def create_cards
+    Card::SUITS.each do |suit|
+      Card::NAMES.each_with_index do |name, index|
+        add_card(Card.new(suit + name, Card::VALUES[index]))
+      end
+    end
   end
 end

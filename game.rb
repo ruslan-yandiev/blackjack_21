@@ -33,8 +33,7 @@ class Game
   def new_start
     add_bank
     add_choice
-    @deck.clear_deck
-    @deck.add_card
+    create_deck
     add_cards(@player)
     add_cards(@dealer)
     player_info
@@ -113,7 +112,6 @@ class Game
   end
 
   def create
-    create_cards
     create_deck
     create_player
     create_dealer
@@ -127,17 +125,8 @@ class Game
     choice
   end
 
-  def create_cards
-    Card::SUITS.each do |suit|
-      Card::NAMES.each_with_index do |name, index|
-        Deck.add_card(Card.new(suit + name, Card::VALUES[index]))
-      end
-    end
-  end
-
   def create_deck
     @deck = Deck.new
-    @deck.add_card
   end
 
   def create_player
